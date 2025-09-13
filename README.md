@@ -11,9 +11,8 @@ This project showcases how to use MinGW64 on macOS to create Windows executables
 ```
 mingw64_mac/
 ├── main.cpp           # C++ 源代码 (18行)
-├── CMakeLists.txt     # CMake 配置 (79行，含自定义目标)
+├── CMakeLists.txt     # CMake 配置 (40行，简化版)
 ├── README.md          # 项目文档
-├── CMAKE_USAGE.md     # CMake 关键词指南
 └── .gitignore         # Git 忽略文件
 ```
 
@@ -45,26 +44,21 @@ cmake --build . --target info
 # 基本构建 / Basic build
 cmake --build .
 
-# 调试版本 / Debug build
-cmake --build . --target debug
+# 查看项目信息 / View project info
+cmake --build . --target info
 
-# 发布版本 / Release build
-cmake --build . --target release
-
-# 重新构建 / Rebuild
-cmake --build . --target rebuild
+# 清理项目 / Clean project
+cmake --build . --target clean-all
 ```
 
 ### 4. 运行和测试 / Run and Test
 ```bash
-# 查看项目信息 / View project info
-cmake --build . --target info
+# 在 Windows 上运行 / Run on Windows
+MinGW64Project.exe
 
-# 运行程序 (需要 Wine) / Run program (requires Wine)
-cmake --build . --target run
-
-# 清理项目 / Clean project
-cmake --build . --target clean-all
+# 在 macOS 上用 Wine 运行 / Run with Wine on macOS
+brew install --cask wine-stable
+wine ./bin/MinGW64Project.exe
 ```
 
 ## 可用目标 / Available Targets
@@ -72,11 +66,7 @@ cmake --build . --target clean-all
 | 目标 / Target | 命令 / Command | 功能 / Function |
 |---------------|----------------|-----------------|
 | **`info`** | `cmake --build . --target info` | 显示项目信息 / Show project info |
-| **`debug`** | `cmake --build . --target debug` | 构建调试版本 / Build debug version |
-| **`release`** | `cmake --build . --target release` | 构建发布版本 / Build release version |
-| **`rebuild`** | `cmake --build . --target rebuild` | 重新构建 / Rebuild project |
-| **`run`** | `cmake --build . --target run` | 运行程序 / Run program |
-| **`clean-all`** | `cmake --build . --target clean-all` | 完全清理 / Complete cleanup |
+| **`clean-all`** | `cmake --build . --target clean-all` | 清理构建文件 / Clean build files |
 
 ## 快速开始 / Quick Start
 
@@ -95,17 +85,16 @@ cmake ..
 cmake --build . --target info
 
 # 4. 运行程序 / Run program
-cmake --build . --target run
+wine ./bin/MinGW64Project.exe
 ```
 
 ### 开发流程 / Development Workflow
 ```bash
-# 调试开发 / Debug development
-cmake --build . --target debug
-cmake --build . --target info
+# 构建项目 / Build project
+cmake --build .
 
-# 发布构建 / Release build
-cmake --build . --target release
+# 查看信息 / View info
+cmake --build . --target info
 
 # 清理重建 / Clean rebuild
 cmake --build . --target clean-all
@@ -125,9 +114,8 @@ cmake --build .
 ## 项目文件 / Project Files
 
 - **`main.cpp`** - C++ 源代码，简单的控制台程序 / C++ source code, simple console program
-- **`CMakeLists.txt`** - CMake 配置文件，包含 6 个自定义目标 / CMake configuration with 6 custom targets
+- **`CMakeLists.txt`** - CMake 配置文件，简化版 / CMake configuration, simplified version
 - **`README.md`** - 项目文档和使用指南 / Project documentation and usage guide
-- **`CMAKE_USAGE.md`** - CMake 关键词速查指南 / CMake keywords quick reference guide
 - **`.gitignore`** - Git 忽略文件配置 / Git ignore file configuration
 
 ## 故障排除 / Troubleshooting
