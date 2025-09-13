@@ -56,6 +56,16 @@ cmake --build . --target app      # 构建特定目标 / Build specific target
 cmake --build . -j 4              # 并行构建 / Parallel build
 ```
 
+### 自定义目标 / Custom Targets
+```bash
+cmake --build . --target clean-all    # 清理所有文件 / Clean all files
+cmake --build . --target rebuild      # 重新构建 / Rebuild project
+cmake --build . --target debug        # 调试版本 / Debug build
+cmake --build . --target release      # 发布版本 / Release build
+cmake --build . --target run          # 运行程序 / Run program
+cmake --build . --target info         # 项目信息 / Project info
+```
+
 ### 安装命令 / Install Commands
 ```bash
 cmake --install .                 # 安装 / Install
@@ -81,7 +91,8 @@ which x86_64-w64-mingw32-gcc        # 验证安装 / Verify installation
 mkdir build && cd build              # 创建构建目录 / Create build dir
 cmake ..                            # 配置 / Configure
 cmake --build .                     # 构建 / Build
-ls -la bin/                         # 查看输出 / Check output
+cmake --build . --target info       # 查看项目信息 / View project info
+cmake --build . --target run        # 运行程序 / Run program
 ```
 
 ### 程序运行 / Program Run
