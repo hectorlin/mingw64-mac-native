@@ -1,239 +1,125 @@
-# CMake 使用指南 / CMake Usage Guide
+# CMake 关键词指南 / CMake Keywords Guide
 
-简单易懂的 CMake 命令和用法说明 / Simple and easy-to-understand CMake commands and usage guide.
+CMake 核心关键词和命令速查 / CMake core keywords and commands quick reference.
 
-## 基本概念 / Basic Concepts
+## 核心关键词 / Core Keywords
 
-### 什么是 CMake？/ What is CMake?
-CMake 是一个跨平台的构建系统生成器，可以生成各种构建文件（如 Makefile、Visual Studio 项目等）。
-CMake is a cross-platform build system generator that can generate various build files (like Makefiles, Visual Studio projects, etc.).
+### CMake 定义 / CMake Definition
+**CMake** = 跨平台构建系统生成器 / Cross-platform build system generator
+- 生成 Makefile、Visual Studio 项目等 / Generates Makefiles, Visual Studio projects, etc.
+- 一次配置，多平台构建 / Configure once, build everywhere
 
-### 为什么使用 CMake？/ Why use CMake?
-- **跨平台 / Cross-platform**: 一次配置，多平台构建
-- **简单易用 / Simple**: 语法清晰，易于理解
-- **功能强大 / Powerful**: 支持复杂的项目结构
-- **标准化 / Standardized**: 广泛使用的行业标准
+### 关键优势 / Key Advantages
+- **跨平台 / Cross-platform**: Windows, macOS, Linux
+- **标准化 / Standardized**: 行业标准 / Industry standard
+- **自动化 / Automated**: 自动依赖管理 / Automatic dependency management
 
-## 项目中的 CMakeLists.txt / CMakeLists.txt in This Project
+## 关键词速查 / Keywords Quick Reference
 
-### 文件内容 / File Content
-```cmake
-cmake_minimum_required(VERSION 3.16)
+### 核心命令 / Core Commands
+| 关键词 / Keyword | 功能 / Function | 示例 / Example |
+|------------------|-----------------|----------------|
+| `cmake_minimum_required` | 版本要求 / Version requirement | `cmake_minimum_required(VERSION 3.16)` |
+| `project` | 项目定义 / Project definition | `project(MyProject)` |
+| `add_executable` | 创建可执行文件 / Create executable | `add_executable(app main.cpp)` |
+| `add_library` | 创建库 / Create library | `add_library(lib STATIC src.cpp)` |
+| `target_link_libraries` | 链接库 / Link libraries | `target_link_libraries(app lib)` |
 
-# MinGW64 for macOS
-set(CMAKE_SYSTEM_NAME Windows)
-set(CMAKE_C_COMPILER /opt/homebrew/bin/x86_64-w64-mingw32-gcc)
-set(CMAKE_CXX_COMPILER /opt/homebrew/bin/x86_64-w64-mingw32-g++)
-set(CMAKE_C_COMPILER_WORKS 1)
-set(CMAKE_CXX_COMPILER_WORKS 1)
+### 系统设置 / System Settings
+| 关键词 / Keyword | 功能 / Function | 示例 / Example |
+|------------------|-----------------|----------------|
+| `CMAKE_SYSTEM_NAME` | 目标系统 / Target system | `set(CMAKE_SYSTEM_NAME Windows)` |
+| `CMAKE_C_COMPILER` | C 编译器 / C compiler | `set(CMAKE_C_COMPILER gcc)` |
+| `CMAKE_CXX_COMPILER` | C++ 编译器 / C++ compiler | `set(CMAKE_CXX_COMPILER g++)` |
+| `CMAKE_CXX_STANDARD` | C++ 标准 / C++ standard | `set(CMAKE_CXX_STANDARD 17)` |
 
-project(MinGW64Project)
+### 编译选项 / Compilation Options
+| 关键词 / Keyword | 功能 / Function | 示例 / Example |
+|------------------|-----------------|----------------|
+| `target_compile_options` | 编译选项 / Compile options | `target_compile_options(app PRIVATE -Wall)` |
+| `target_include_directories` | 头文件路径 / Include directories | `target_include_directories(app PRIVATE include)` |
+| `target_compile_definitions` | 编译定义 / Compile definitions | `target_compile_definitions(app PRIVATE DEBUG)` |
 
-# C++ standard
-set(CMAKE_CXX_STANDARD 17)
+## 命令速查 / Commands Quick Reference
 
-# Create executable
-add_executable(${PROJECT_NAME} main.cpp)
-
-# Output directory
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-)
-
-# Compiler flags
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -O2)
-
-# Build info
-message(STATUS "MinGW64 on macOS -> Windows executable")
-```
-
-### 逐行解释 / Line by Line Explanation
-
-1. **`cmake_minimum_required(VERSION 3.16)`**
-   - 设置最低 CMake 版本要求
-   - Sets minimum CMake version requirement
-
-2. **`set(CMAKE_SYSTEM_NAME Windows)`**
-   - 设置目标系统为 Windows
-   - Sets target system to Windows
-
-3. **`set(CMAKE_C_COMPILER ...)`**
-   - 设置 C 编译器路径
-   - Sets C compiler path
-
-4. **`set(CMAKE_CXX_COMPILER ...)`**
-   - 设置 C++ 编译器路径
-   - Sets C++ compiler path
-
-5. **`project(MinGW64Project)`**
-   - 定义项目名称
-   - Defines project name
-
-6. **`set(CMAKE_CXX_STANDARD 17)`**
-   - 设置 C++ 标准版本
-   - Sets C++ standard version
-
-7. **`add_executable(...)`**
-   - 创建可执行文件
-   - Creates executable
-
-8. **`target_compile_options(...)`**
-   - 设置编译选项
-   - Sets compilation options
-
-## 常用 CMake 命令 / Common CMake Commands
-
-### 1. 配置项目 / Configure Project
+### 配置命令 / Configuration Commands
 ```bash
-# 基本配置 / Basic configuration
-cmake .
-
-# 指定构建类型 / Specify build type
-cmake -DCMAKE_BUILD_TYPE=Release .
-
-# 指定安装路径 / Specify install path
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local .
+cmake .                           # 基本配置 / Basic config
+cmake -DCMAKE_BUILD_TYPE=Release . # 发布版本 / Release build
+cmake -DCMAKE_INSTALL_PREFIX=/usr . # 安装路径 / Install path
 ```
 
-### 2. 构建项目 / Build Project
+### 构建命令 / Build Commands
 ```bash
-# 构建所有目标 / Build all targets
-cmake --build .
-
-# 构建特定目标 / Build specific target
-cmake --build . --target MinGW64Project
-
-# 并行构建 / Parallel build
-cmake --build . -j 4
+cmake --build .                   # 构建所有 / Build all
+cmake --build . --target app      # 构建特定目标 / Build specific target
+cmake --build . -j 4              # 并行构建 / Parallel build
 ```
 
-### 3. 安装项目 / Install Project
+### 安装命令 / Install Commands
 ```bash
-# 安装到系统 / Install to system
-cmake --install .
-
-# 安装到指定路径 / Install to specific path
-cmake --install . --prefix /custom/path
+cmake --install .                 # 安装 / Install
+cmake --install . --prefix /usr   # 指定路径 / Custom path
 ```
 
-### 4. 清理项目 / Clean Project
+### 清理命令 / Clean Commands
 ```bash
-# 清理构建文件 / Clean build files
-cmake --build . --target clean
-
-# 删除构建目录 / Remove build directory
-rm -rf build/
+cmake --build . --target clean    # 清理 / Clean
+rm -rf build/                     # 删除构建目录 / Remove build dir
 ```
 
-## 本项目使用步骤 / Usage Steps for This Project
+## 快速开始 / Quick Start
 
-### 1. 准备环境 / Prepare Environment
+### 环境准备 / Environment Setup
 ```bash
-# 安装 MinGW64 / Install MinGW64
-brew install mingw-w64
-
-# 验证安装 / Verify installation
-which x86_64-w64-mingw32-gcc
+brew install mingw-w64              # 安装 MinGW64 / Install MinGW64
+which x86_64-w64-mingw32-gcc        # 验证安装 / Verify installation
 ```
 
-### 2. 配置项目 / Configure Project
+### 项目构建 / Project Build
 ```bash
-# 创建构建目录 / Create build directory
-mkdir build && cd build
-
-# 配置 CMake / Configure CMake
-cmake ..
+mkdir build && cd build              # 创建构建目录 / Create build dir
+cmake ..                            # 配置 / Configure
+cmake --build .                     # 构建 / Build
+ls -la bin/                         # 查看输出 / Check output
 ```
 
-### 3. 构建项目 / Build Project
+### 程序运行 / Program Run
 ```bash
-# 构建项目 / Build project
-cmake --build .
-
-# 查看输出 / Check output
-ls -la bin/
+MinGW64Project.exe                  # Windows 运行 / Run on Windows
+wine ./bin/MinGW64Project.exe       # macOS 运行 / Run on macOS
 ```
 
-### 4. 运行程序 / Run Program
+## 问题解决 / Troubleshooting
+
+### 关键词问题 / Keyword Issues
+| 问题 / Problem | 关键词 / Keyword | 解决方案 / Solution |
+|----------------|------------------|---------------------|
+| 编译器未找到 / Compiler not found | `CMAKE_C_COMPILER` | 检查路径 / Check path: `which gcc` |
+| 构建失败 / Build failed | `cmake --build` | 清理重建 / Clean rebuild: `rm -rf build/` |
+| 权限问题 / Permission denied | `chmod` | 添加执行权限 / Add execute: `chmod +x app` |
+
+### 调试关键词 / Debug Keywords
 ```bash
-# 在 Windows 上运行 / Run on Windows
-MinGW64Project.exe
-
-# 在 macOS 上用 Wine 运行 / Run with Wine on macOS
-wine ./bin/MinGW64Project.exe
+cmake --build . --verbose          # 详细输出 / Verbose output
+cmake -DCMAKE_BUILD_TYPE=Debug ..  # 调试模式 / Debug mode
+cmake -DCMAKE_CXX_FLAGS="-Wall" .. # 自定义标志 / Custom flags
 ```
 
-## 常见问题 / Common Issues
+## 关键词总结 / Keywords Summary
 
-### 1. 编译器未找到 / Compiler Not Found
-```bash
-# 错误信息 / Error message
-CMake Error: Could not find compiler
+### 必记关键词 / Must-Know Keywords
+- **`cmake_minimum_required`** - 版本要求 / Version requirement
+- **`project`** - 项目定义 / Project definition  
+- **`add_executable`** - 创建可执行文件 / Create executable
+- **`target_compile_options`** - 编译选项 / Compile options
+- **`CMAKE_CXX_STANDARD`** - C++ 标准 / C++ standard
 
-# 解决方案 / Solution
-# 检查编译器路径 / Check compiler path
-which x86_64-w64-mingw32-gcc
-# 更新 CMakeLists.txt 中的路径 / Update path in CMakeLists.txt
-```
-
-### 2. 构建失败 / Build Failed
-```bash
-# 错误信息 / Error message
-make: *** [target] Error 1
-
-# 解决方案 / Solution
-# 清理并重新构建 / Clean and rebuild
-rm -rf build/
-mkdir build && cd build
-cmake ..
-cmake --build .
-```
-
-### 3. 权限问题 / Permission Issues
-```bash
-# 错误信息 / Error message
-Permission denied
-
-# 解决方案 / Solution
-# 检查文件权限 / Check file permissions
-chmod +x bin/MinGW64Project.exe
-```
-
-## 高级用法 / Advanced Usage
-
-### 1. 调试构建 / Debug Build
-```bash
-# 启用详细输出 / Enable verbose output
-cmake --build . --verbose
-
-# 调试模式构建 / Debug build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-```
-
-### 2. 自定义选项 / Custom Options
-```bash
-# 自定义编译器标志 / Custom compiler flags
-cmake -DCMAKE_CXX_FLAGS="-Wall -Wextra" ..
-
-# 自定义安装路径 / Custom install path
-cmake -DCMAKE_INSTALL_PREFIX=/custom/path ..
-```
-
-### 3. 多配置构建 / Multi-Config Build
-```bash
-# 创建多个构建目录 / Create multiple build directories
-mkdir build-release build-debug
-cd build-release && cmake -DCMAKE_BUILD_TYPE=Release ..
-cd ../build-debug && cmake -DCMAKE_BUILD_TYPE=Debug ..
-```
-
-## 总结 / Summary
-
-CMake 是一个强大的构建工具，通过简单的配置文件可以管理复杂的项目构建过程。本项目展示了如何使用 CMake 进行跨平台编译，特别是从 macOS 编译 Windows 可执行文件。
-
-CMake is a powerful build tool that can manage complex project build processes through simple configuration files. This project demonstrates how to use CMake for cross-platform compilation, especially compiling Windows executables from macOS.
+### 常用命令 / Common Commands
+- **`cmake .`** - 配置 / Configure
+- **`cmake --build .`** - 构建 / Build
+- **`cmake --install .`** - 安装 / Install
 
 ---
 
-**提示 / Tip**: 建议在修改 CMakeLists.txt 后先清理构建目录再重新构建，以确保更改生效。
-**Suggestion**: It's recommended to clean the build directory before rebuilding after modifying CMakeLists.txt to ensure changes take effect.
+**快速提示 / Quick Tip**: 修改 CMakeLists.txt 后清理构建目录 / Clean build directory after modifying CMakeLists.txt
