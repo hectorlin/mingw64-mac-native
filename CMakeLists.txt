@@ -24,6 +24,9 @@ endif()
 # Create executable
 add_executable(${PROJECT_NAME} main.cpp)
 
+# Link with pthread library
+target_link_libraries(${PROJECT_NAME} PRIVATE pthread)
+
 # Output directory
 set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
