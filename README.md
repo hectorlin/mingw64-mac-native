@@ -1,155 +1,136 @@
-# MinGW64 Cross-Compilation Project
+# Native macOS C++ Project
 
-A complete C++ project demonstrating cross-compilation from macOS to Windows using MinGW64 with advanced CMake targets.
+A simple C++ project with CMake build system for native macOS development.
 
 ## 项目概述 / Project Overview
 
-This project showcases how to use MinGW64 on macOS to create Windows executables through cross-compilation, featuring a comprehensive CMake build system with custom targets similar to Make.
+This project demonstrates native macOS C++ compilation using CMake with Apple's clang compiler.
 
 ## 文件结构 / File Structure
 
 ```
-mingw64_mac/
-├── main.cpp           # C++ 源代码 (18行)
-├── CMakeLists.txt     # CMake 配置 (40行，简化版)
-├── README.md          # 项目文档
-└── .gitignore         # Git 忽略文件
+mingw64-mac/
+├── main.cpp                    # C++ 源代码 / C++ source code
+├── CMakeLists.txt              # CMake 配置 / CMake configuration
+├── README.md                   # 项目文档 / Project documentation
+└── build/                      # 构建目录 / Build directory
+    └── bin/
+        └── MinGW64Project      # 可执行文件 / Executable
 ```
 
-## CMake 工作流程 / CMake Workflow
+## 快速开始 / Quick Start
 
 ### 1. 环境准备 / Environment Setup
+
+```bash
+# 安装 Xcode Command Line Tools / Install Xcode Command Line Tools
+xcode-select --install
+
+# 安装 CMake / Install CMake
+brew install cmake
+
+# 验证安装 / Verify installation
+clang --version
+cmake --version
+```
+
+### 2. 构建项目 / Build Project
+
+```bash
+# 创建构建目录 / Create build directory
+mkdir build && cd build
+
+# 配置和构建 / Configure and build
+cmake ..
+make
+
+# 运行程序 / Run program
+./bin/MinGW64Project
+```
+
+## 可用命令 / Available Commands
+
+| 命令 / Command | 功能 / Function |
+|----------------|-----------------|
+| `make` | 构建项目 / Build project |
+| `make debug` | 构建调试版本 / Build debug version |
+| `make release` | 构建发布版本 / Build release version |
+| `make run` | 构建并运行 / Build and run |
+| `make clean-all` | 清理构建文件 / Clean build files |
+
+## 技术规格 / Technical Specifications
+
+- **平台 / Platform**: macOS (Native)
+- **编译器 / Compiler**: AppleClang
+- **C++ 标准 / C++ Standard**: C++17
+- **构建系统 / Build System**: CMake 3.16+
+- **文件大小 / File Size**: ~53 KB
+
+## MinGW64 安装 (可选) / MinGW64 Installation (Optional)
+
+如果你想进行 Windows 交叉编译：/ If you want Windows cross-compilation:
+
 ```bash
 # 安装 MinGW64 / Install MinGW64
 brew install mingw-w64
 
 # 验证安装 / Verify installation
-which x86_64-w64-mingw32-gcc
+x86_64-w64-mingw32-gcc --version
 ```
 
-### 2. 项目配置 / Project Configuration
+### 使用 MinGW64 交叉编译 / Cross-compilation with MinGW64
+
 ```bash
-# 创建构建目录 / Create build directory
-mkdir build && cd build
-
-# 配置 CMake / Configure CMake
-cmake ..
-
-# 查看可用目标 / View available targets
-cmake --build . --target info
+# 编译 Windows 可执行文件 / Compile Windows executable
+x86_64-w64-mingw32-g++ -static -o hello.exe hello.cpp
 ```
-
-### 3. 构建流程 / Build Process
-```bash
-# 基本构建 / Basic build
-make
-
-# 调试版本 / Debug build
-cmake --build . --target debug
-
-# 清理项目 / Clean project
-cmake --build . --target clean-all
-```
-
-### 4. 运行和测试 / Run and Test
-```bash
-# 在 Windows 上运行 / Run on Windows
-MinGW64Project.exe
-
-# 在 macOS 上用 Wine 运行 / Run with Wine on macOS
-brew install --cask wine-stable
-wine ./bin/MinGW64Project.exe
-```
-
-## 可用目标 / Available Targets
-
-| 目标 / Target | 命令 / Command | 功能 / Function |
-|---------------|----------------|-----------------|
-| **`make`** | `make` | 构建项目 / Build project |
-| **`make clean-all`** | `cmake --build . --target clean-all` | 清理构建文件 / Clean build files |
-| **`make debug`** | `cmake --build . --target debug` | 构建调试版本 / Build debug version |
-
-## 快速开始 / Quick Start
-
-### 完整流程 / Complete Workflow
-```bash
-# 1. 克隆项目 / Clone project
-git clone https://github.com/hectorlin/mingw64-mac.git
-cd mingw64-mac
-
-# 2. 安装依赖 / Install dependencies
-brew install mingw-w64
-
-# 3. 构建项目 / Build project
-mkdir build && cd build
-cmake ..
-make
-
-# 4. 运行程序 / Run program
-wine ./bin/MinGW64Project.exe
-```
-
-### 开发流程 / Development Workflow
-```bash
-# 构建项目 / Build project
-make
-
-# 调试版本 / Debug build
-cmake --build . --target debug
-
-# 清理重建 / Clean rebuild
-cmake --build . --target clean-all
-cmake ..
-make
-```
-
-## 技术规格 / Technical Specifications
-
-- **目标平台 / Target Platform**: Windows PE32+ x86-64
-- **编译器 / Compiler**: MinGW64 GCC 15.2.0
-- **C++ 标准 / C++ Standard**: C++17
-- **构建系统 / Build System**: CMake 3.16+
-- **文件大小 / File Size**: ~145 KB (Release)
-- **交叉编译 / Cross-compilation**: macOS → Windows
-
-## 项目文件 / Project Files
-
-- **`main.cpp`** - C++ 源代码，简单的控制台程序 / C++ source code, simple console program
-- **`CMakeLists.txt`** - CMake 配置文件，简化版 / CMake configuration, simplified version
-- **`README.md`** - 项目文档和使用指南 / Project documentation and usage guide
-- **`.gitignore`** - Git 忽略文件配置 / Git ignore file configuration
 
 ## 故障排除 / Troubleshooting
 
 ### 常见问题 / Common Issues
 
-1. **MinGW64 未找到 / MinGW64 not found**
+1. **Xcode Command Line Tools 未安装 / Xcode Command Line Tools not installed**
+   ```bash
+   xcode-select --install
+   ```
+
+2. **CMake 未安装 / CMake not installed**
+   ```bash
+   brew install cmake
+   ```
+
+3. **构建失败 / Build failed**
+   ```bash
+   make clean-all
+   cmake ..
+   make
+   ```
+
+4. **MinGW64 未找到 / MinGW64 not found**
    ```bash
    brew install mingw-w64
-   which x86_64-w64-mingw32-gcc
    ```
 
-2. **构建失败 / Build failed**
-   ```bash
-   cmake --build . --target clean-all
-   cmake ..
-   cmake --build .
-   ```
+## 开发工作流 / Development Workflow
 
-3. **Wine 运行失败 / Wine run failed**
-   ```bash
-   brew install --cask wine-stable
-   cmake --build . --target run
-   ```
+```bash
+# 修改代码 / Modify code
+vim main.cpp
 
-## 贡献 / Contributing
+# 构建 / Build
+make
 
-欢迎提交 Issue 和 Pull Request！/ Welcome to submit issues and pull requests!
+# 运行 / Run
+make run
+
+# 调试版本 / Debug version
+make debug
+```
 
 ## 许可证 / License
 
-MIT License - 开源项目 / Open source project
+MIT License
 
 ---
 
-**GitHub 仓库 / GitHub Repository**: https://github.com/hectorlin/mingw64-mac
+**项目状态 / Project Status**: ✅ 完全功能 / Fully functional
