@@ -12,6 +12,11 @@ project(MinGW64Project)
 # C++ standard
 set(CMAKE_CXX_STANDARD 17)
 
+# Build types
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
 # Create executable
 add_executable(${PROJECT_NAME} main.cpp)
 
@@ -20,21 +25,29 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
-# Compiler flags
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -O2)
+# Compiler flags based on build type
+target_compile_options(${PROJECT_NAME} PRIVATE
+    -Wall
+    $<$<CONFIG:Debug>:-g -O0>
+    $<$<CONFIG:Release>:-O2 -DNDEBUG>
+)
 
-# Simple custom targets
+# Make-like targets
 add_custom_target(clean-all
     COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/bin
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${CMAKE_BINARY_DIR}/CMakeFiles
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/Makefile
+    COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/cmake_install.cmake
     COMMENT "Cleaning build files"
 )
 
-add_custom_target(info
-    COMMAND ${CMAKE_COMMAND} -E echo "Project: ${PROJECT_NAME}"
-    COMMAND ${CMAKE_COMMAND} -E echo "Compiler: ${CMAKE_CXX_COMPILER}"
-    COMMAND ${CMAKE_COMMAND} -E echo "Output: ${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}.exe"
-    COMMENT "Project information"
+add_custom_target(debug
+    COMMAND ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Debug ..
+    COMMAND ${CMAKE_COMMAND} --build .
+    COMMENT "Building debug version"
 )
 
 # Build info
 message(STATUS "MinGW64 on macOS -> Windows executable")
+message(STATUS "Available targets: make, make clean-all, make debug")

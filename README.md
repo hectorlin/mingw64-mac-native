@@ -42,10 +42,10 @@ cmake --build . --target info
 ### 3. 构建流程 / Build Process
 ```bash
 # 基本构建 / Basic build
-cmake --build .
+make
 
-# 查看项目信息 / View project info
-cmake --build . --target info
+# 调试版本 / Debug build
+cmake --build . --target debug
 
 # 清理项目 / Clean project
 cmake --build . --target clean-all
@@ -65,8 +65,9 @@ wine ./bin/MinGW64Project.exe
 
 | 目标 / Target | 命令 / Command | 功能 / Function |
 |---------------|----------------|-----------------|
-| **`info`** | `cmake --build . --target info` | 显示项目信息 / Show project info |
-| **`clean-all`** | `cmake --build . --target clean-all` | 清理构建文件 / Clean build files |
+| **`make`** | `make` | 构建项目 / Build project |
+| **`make clean-all`** | `cmake --build . --target clean-all` | 清理构建文件 / Clean build files |
+| **`make debug`** | `cmake --build . --target debug` | 构建调试版本 / Build debug version |
 
 ## 快速开始 / Quick Start
 
@@ -82,7 +83,7 @@ brew install mingw-w64
 # 3. 构建项目 / Build project
 mkdir build && cd build
 cmake ..
-cmake --build . --target info
+make
 
 # 4. 运行程序 / Run program
 wine ./bin/MinGW64Project.exe
@@ -91,15 +92,15 @@ wine ./bin/MinGW64Project.exe
 ### 开发流程 / Development Workflow
 ```bash
 # 构建项目 / Build project
-cmake --build .
+make
 
-# 查看信息 / View info
-cmake --build . --target info
+# 调试版本 / Debug build
+cmake --build . --target debug
 
 # 清理重建 / Clean rebuild
 cmake --build . --target clean-all
 cmake ..
-cmake --build .
+make
 ```
 
 ## 技术规格 / Technical Specifications
