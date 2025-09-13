@@ -1,3 +1,0 @@
-/opt/homebrew/bin/cmake -E rm -f CMakeFiles/MinGW64Project.dir/objects.a
-/opt/homebrew/bin/x86_64-w64-mingw32-ar qc CMakeFiles/MinGW64Project.dir/objects.a @CMakeFiles/MinGW64Project.dir/objects1.rsp
-/opt/homebrew/bin/x86_64-w64-mingw32-g++ -Wl,--whole-archive CMakeFiles/MinGW64Project.dir/objects.a -Wl,--no-whole-archive -o bin/MinGW64Project.exe -Wl,--out-implib,libMinGW64Project.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/MinGW64Project.dir/linkLibs.rsp

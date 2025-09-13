@@ -6,16 +6,10 @@ Simple C++ project for creating Windows executables on macOS using MinGW64.
 
 ```
 mingw64_mac/
-├── main.cpp                    # C++ 源代码
-├── CMakeLists.txt             # CMake 配置 (22行)
-├── README.md                  # 项目文档
-├── mingw64-toolchain.cmake    # 工具链文件 (可选)
-└── build/                     # 构建目录
-    ├── CMakeCache.txt
-    ├── CMakeFiles/
-    ├── Makefile
-    └── bin/
-        └── MinGW64Project.exe # Windows 可执行文件
+├── main.cpp           # C++ 源代码
+├── CMakeLists.txt     # CMake 配置 (22行)
+├── README.md          # 项目文档
+└── .gitignore         # Git 忽略文件
 ```
 
 ## 安装 / Install
@@ -47,7 +41,8 @@ wine ./bin/MinGW64Project.exe
 
 - `main.cpp` - C++ source code
 - `CMakeLists.txt` - CMake config (22 lines)
-- `build/bin/MinGW64Project.exe` - Windows executable
+- `README.md` - Project documentation
+- `.gitignore` - Git ignore file
 
 ## 技术 / Tech
 
