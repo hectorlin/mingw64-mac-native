@@ -1,0 +1,3 @@
+/Users/wilson/Desktop/mingw64_mac/build/CMakeFiles/MinGW64Project.dir
+/Users/wilson/Desktop/mingw64_mac/build/CMakeFiles/edit_cache.dir
+/Users/wilson/Desktop/mingw64_mac/build/CMakeFiles/rebuild_cache.dir
