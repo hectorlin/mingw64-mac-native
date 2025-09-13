@@ -9,6 +9,7 @@ mingw64_mac/
 ├── main.cpp           # C++ 源代码
 ├── CMakeLists.txt     # CMake 配置 (22行)
 ├── README.md          # 项目文档
+├── CMAKE_USAGE.md     # CMake 使用指南
 └── .gitignore         # Git 忽略文件
 ```
 
@@ -42,6 +43,7 @@ wine ./bin/MinGW64Project.exe
 - `main.cpp` - C++ source code
 - `CMakeLists.txt` - CMake config (22 lines)
 - `README.md` - Project documentation
+- `CMAKE_USAGE.md` - CMake usage guide
 - `.gitignore` - Git ignore file
 
 ## 技术 / Tech
